@@ -72,17 +72,17 @@
       perspective: 350px;
       display: flex; align-items: flex-end; justify-content: center;
       overflow: hidden;
-      animation: hideCrawl 0.6s 24s forwards; /* Tempo total ajustado para sumir junto com o texto */
+      animation: hideCrawl 0.6s 18s forwards; /* Ajustado para sumir exatamente em 18s */
     }
     @keyframes hideCrawl {
       to { opacity: 0; pointer-events: none; }
     }
     #crawl {
-      width: 85%; /* Um pouco mais largo para acomodar as letras maiores */
+      width: 85%;
       max-width: 850px;
       transform-origin: bottom center;
       transform: rotateX(23deg);
-      animation: crawlUp 24s 2.6s linear forwards; /* Aumentado para 24 segundos para leitura confortável */
+      animation: crawlUp 18s 2.6s linear forwards; /* Tempo de subida otimizado para 18s */
       opacity: 0;
       text-align: center;
       padding-bottom: 4rem;
@@ -94,13 +94,13 @@
     #crawl h2 {
       font-family: 'Orbitron', monospace;
       color: var(--gold);
-      font-size: clamp(2rem, 5.5vw, 3.8rem); /* Letra do TÍTULO aumentada */
+      font-size: clamp(2rem, 5.5vw, 3.8rem);
       text-shadow: var(--glow-gold);
       letter-spacing: 0.15em;
       margin-bottom: 2.5rem;
     }
     #crawl p {
-      font-size: clamp(1.5rem, 3.8vw, 2.3rem); /* Letra do TEXTO aumentada */
+      font-size: clamp(1.5rem, 3.8vw, 2.3rem);
       line-height: 1.8;
       color: var(--gold);
       opacity: 0.95;
@@ -115,7 +115,7 @@
       align-items: center; justify-content: center;
       padding: 3rem 1.5rem 4rem;
       opacity: 0;
-      animation: fadeInMain 1.2s 24.5s forwards; /* Entra suavemente após os 24s do letreiro */
+      animation: fadeInMain 1.2s 18.2s forwards; /* Abre dinamicamente logo após a conclusão do letreiro */
     }
     @keyframes fadeInMain { to { opacity: 1; } }
 
