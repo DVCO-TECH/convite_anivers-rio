@@ -72,7 +72,7 @@
       perspective: 350px;
       display: flex; align-items: flex-end; justify-content: center;
       overflow: hidden;
-      animation: hideCrawl 0.6s 18s forwards; /* Ajustado para sumir exatamente em 18s */
+      animation: hideCrawl 0.6s 19s forwards; /* Modificado de 18s para 19s (1s mais lento) */
     }
     @keyframes hideCrawl {
       to { opacity: 0; pointer-events: none; }
@@ -82,7 +82,7 @@
       max-width: 850px;
       transform-origin: bottom center;
       transform: rotateX(23deg);
-      animation: crawlUp 18s 2.6s linear forwards; /* Tempo de subida otimizado para 18s */
+      animation: crawlUp 19s 2.6s linear forwards; /* Modificado de 18s para 19s (1s mais lento) */
       opacity: 0;
       text-align: center;
       padding-bottom: 4rem;
@@ -115,7 +115,7 @@
       align-items: center; justify-content: center;
       padding: 3rem 1.5rem 4rem;
       opacity: 0;
-      animation: fadeInMain 1.2s 18.2s forwards; /* Abre dinamicamente logo após a conclusão do letreiro */
+      animation: fadeInMain 1.2s 16.2s forwards; /* Modificado de 18.2s para 16.2s (2s mais rápido) */
     }
     @keyframes fadeInMain { to { opacity: 1; } }
 
@@ -345,11 +345,11 @@
 
 <div id="crawl-wrapper" aria-hidden="true">
   <div id="crawl">
-    <h2>UMA MENSAGEM DE UMA GALÁXIA NÃO TÃO DISTANTE</h2>
+    <h2>UMA MENSAGEM PARA TODOS SENSITVOS À FORÇA</h2>
     <p>
-      Em uma data marcada na galáxia,<br>
+      Em uma data marcada na galáxia, 23 DE MAIO,<br>
       celebramos mais uma translação completa ao redor do Sol.<br><br>
-      Os Cavaleiros Jedi, Siths e os habitantes desta galáxia<br>
+      Os Cavaleiros Jedi, Siths e os demais sensitivos à força desta galáxia<br>
       se unem para honrar este momento especial.<br><br>
       A Força convoca todos à celebração.
     </p>
@@ -423,7 +423,7 @@
   </div>
   <p class="event-date">23 · 05 · 2026 &nbsp;|&nbsp; 20:00 H</p>
 
-  <footer>MAY THE FORCE BE WITH YOU · SEMPRE</footer>
+  <footer>MAY THE FORCE BE WITH YOU · ALWAYS</footer>
 </main>
 
 <script>
