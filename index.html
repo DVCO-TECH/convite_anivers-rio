@@ -167,30 +167,107 @@
       font-weight: 400;
     }
 
-    /* ── GALERIA DE MÍDIA AJUSTADA ── */
-    .galeria {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+    /* ── CARROSSEL DE MÍDIA MODERNO ── */
+    .carousel-container {
+      position: relative;
       width: 100%;
-      max-width: 400px;
-      margin-bottom: 2.5rem;
+      max-width: 380px;
+      margin: 0 auto 2.5rem;
+      border-radius: 24px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(192,132,252,0.4), rgba(244,114,182,0.2));
+      box-shadow: 0 16px 40px rgba(13,0,21,0.8), 0 0 30px rgba(147,51,234,0.2);
       animation: fadeUp 0.9s 0.85s both;
     }
-    .midia-item {
+
+    .carousel-view {
+      position: relative;
       width: 100%;
-      border-radius: 18px;
-      border: 1px solid rgba(192,132,252,0.3);
-      background: rgba(59,0,103,0.2);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 32px rgba(107,33,168,0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      object-fit: cover;
+      height: 480px; /* Mantém a proporção elegante da foto de vocês */
+      border-radius: 22px;
+      overflow: hidden;
+      background: #0d0015;
     }
-    .midia-item:hover {
-      transform: scale(1.02);
-      box-shadow: 0 12px 40px rgba(147,51,234,0.4);
-      border-color: rgba(192,132,252,0.6);
+
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-slide img, 
+    .carousel-slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* Botões de Navegação (Setinhas) */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(19, 0, 32, 0.6);
+      border: 1px solid rgba(192, 132, 252, 0.3);
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+    }
+    .carousel-btn:hover {
+      background: var(--violet);
+      border-color: var(--lavender);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    /* Indicadores (Bolinhas embaixo) */
+    .carousel-dots {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+      background: rgba(13, 0, 21, 0.4);
+      padding: 6px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .dot.active {
+      background: var(--gold);
+      transform: scale(1.3);
+      box-shadow: 0 0 8px var(--gold);
     }
  
     /* ── COUNTDOWN ── */
@@ -340,6 +417,7 @@
     @media (max-width: 380px) {
       .countdown { gap: 0.45rem; }
       .sep { font-size: 1.4rem; }
+      .carousel-view { height: 400px; }
     }
   </style>
 </head>
@@ -368,20 +446,42 @@
       glitter, risadas e toda a <em>chatice</em> que faz você ser tão especial. 🎉💜
     </p>
 
-    <!-- ── SEÇÃO DE FOTOS E VÍDEOS COM INTELIGÊNCIA CONTRA ERROS ── -->
-    <div class="galeria">
-      <!-- Foto 1 (Procura na pasta e fora dela caso falhe) -->
-      <img src="midia/foto1.jpeg" onerror="this.onerror=null; this.src='foto1.jpeg';" alt="Foto da Nicolly" class="midia-item">
+    <!-- ── NOVO CARROSSEL DE IMAGENS E VÍDEO ── -->
+    <div class="carousel-container">
+      <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+      <button class="carousel-btn next" id="nextBtn">&#10095;</button>
       
-      <!-- Foto 2 (Procura na pasta e fora dela caso falhe) -->
-      <img src="midia/foto2.jpeg" onerror="this.onerror=null; this.src='foto2.jpeg';" alt="Foto da Nicolly" class="midia-item">
-      
-      <!-- Vídeo 1 (Com suporte Inteligente de caminho alternativo via JS) -->
-      <video class="midia-item" controls id="meuVideo">
-        <source src="midia/video1.mp4" type="video/mp4">
-        <source src="video1.mp4" type="video/mp4">
-        Seu navegador não suporta vídeos.
-      </video>
+      <div class="carousel-view">
+        <div class="carousel-track" id="track">
+          
+          <!-- Slide 1: Foto 1 -->
+          <div class="carousel-slide">
+            <img src="midia/foto1.jpeg" onerror="this.onerror=null; this.src='foto1.jpeg';" alt="Foto 1">
+          </div>
+          
+          <!-- Slide 2: Foto 2 -->
+          <div class="carousel-slide">
+            <img src="midia/foto2.jpeg" onerror="this.onerror=null; this.src='foto2.jpeg';" alt="Foto 2">
+          </div>
+          
+          <!-- Slide 3: Vídeo -->
+          <div class="carousel-slide">
+            <video controls id="meuVideo" style="pointer-events: auto;">
+              <source src="midia/video1.mp4" type="video/mp4">
+              <source src="video1.mp4" type="video/mp4">
+              Seu navegador não suporta vídeos.
+            </video>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bolinhas indicadoras -->
+      <div class="carousel-dots" id="dotsContainer">
+        <div class="dot active" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+      </div>
     </div>
  
     <div class="countdown">
@@ -415,6 +515,63 @@
   </div>
  
   <script>
+    /* ── LÓGICA DO CARROSSEL DE MÍDIA ── */
+    const track = document.getElementById('track');
+    const slides = Array.from(track.children);
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const dots = Array.from(document.getElementById('dotsContainer').children);
+    
+    let currentIndex = 0;
+    let autoSlideInterval;
+
+    function updateCarousel(index) {
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+      
+      currentIndex = index;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      
+      // Atualiza os pontinhos
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[currentIndex].classList.add('active');
+
+      // Se mudar de slide e for um vídeo, pausa ele por segurança
+      const video = document.getElementById('meuVideo');
+      if (video && currentIndex !== 2) {
+        video.pause();
+      }
+    }
+
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        // Se o usuário estiver assistindo o vídeo (slide index 2), não passa automaticamente
+        const video = document.getElementById('meuVideo');
+        if (currentIndex === 2 && video && !video.paused) return;
+        
+        updateCarousel(currentIndex + 1);
+      }, 5000); // Muda a cada 5 segundos
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlideInterval);
+      startAutoSlide();
+    }
+
+    nextBtn.addEventListener('click', () => { updateCarousel(currentIndex + 1); resetAutoSlide(); });
+    prevBtn.addEventListener('click', () => { updateCarousel(currentIndex - 1); resetAutoSlide(); });
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        const targetIndex = parseInt(e.target.dataset.index);
+        updateCarousel(targetIndex);
+        resetAutoSlide();
+      });
+    });
+
+    // Inicia o carrossel automático
+    startAutoSlide();
+
     /* Sistema de correção de vídeo caso dê erro no caminho principal */
     const video = document.getElementById('meuVideo');
     if (video) {
@@ -568,8 +725,3 @@
   </script>
 </body>
 </html>
- 
-
-
-
-  
