@@ -167,7 +167,7 @@
       font-weight: 400;
     }
 
-    /* ── GALERIA DE MÍDIA ── */
+    /* ── GALERIA DE MÍDIA AJUSTADA ── */
     .galeria {
       display: flex;
       flex-direction: column;
@@ -368,11 +368,18 @@
       glitter, risadas e toda a <em>chatice</em> que faz você ser tão especial. 🎉💜
     </p>
 
+    <!-- ── SEÇÃO DE FOTOS E VÍDEOS COM INTELIGÊNCIA CONTRA ERROS ── -->
     <div class="galeria">
-      <img src="midia/foto1.jpg" alt="Foto da Nicolly" class="midia-item">
+      <!-- Foto 1 (Procura na pasta e fora dela caso falhe) -->
+      <img src="midia/foto1.jpeg" onerror="this.onerror=null; this.src='foto1.jpeg';" alt="Foto da Nicolly" class="midia-item">
       
-      <video class="midia-item" controls>
+      <!-- Foto 2 (Procura na pasta e fora dela caso falhe) -->
+      <img src="midia/foto2.jpeg" onerror="this.onerror=null; this.src='foto2.jpeg';" alt="Foto da Nicolly" class="midia-item">
+      
+      <!-- Vídeo 1 (Com suporte Inteligente de caminho alternativo via JS) -->
+      <video class="midia-item" controls id="meuVideo">
         <source src="midia/video1.mp4" type="video/mp4">
+        <source src="video1.mp4" type="video/mp4">
         Seu navegador não suporta vídeos.
       </video>
     </div>
@@ -408,6 +415,18 @@
   </div>
  
   <script>
+    /* Sistema de correção de vídeo caso dê erro no caminho principal */
+    const video = document.getElementById('meuVideo');
+    if (video) {
+      video.addEventListener('error', function() {
+        const source = video.querySelector('source:nth-child(2)');
+        if (source && video.src !== source.src) {
+          video.src = source.src;
+          video.load();
+        }
+      }, true);
+    }
+
     /* ── STARS ── */
     (function(){
       const cont = document.getElementById('stars');
@@ -549,3 +568,8 @@
   </script>
 </body>
 </html>
+ 
+
+
+
+  
